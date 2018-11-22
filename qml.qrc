@@ -1,14 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Images/first.png</file>
-        <file>Images/last.png</file>
+        <file>Images/volume.png</file>
+        <file>Images/open.png</file>
+        <file>Images/fullscreen.png</file>
         <file>Images/next.png</file>
         <file>Images/pause.png</file>
         <file>Images/play.png</file>
         <file>Images/previoust.png</file>
         <file>Images/stop.png</file>
-        <file>Images/volume.png</file>
-        <file>Images/open.png</file>
     </qresource>
 </RCC>
