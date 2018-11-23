@@ -248,15 +248,14 @@ ApplicationWindow {
                     onClicked: {
                         //执行openFile函数
                         mymediaplayer.openFile()
-                        //把视频文件的路径赋值给player的资源
-                        player.source = mymediaplayer.fileNameUrl
-                        if(isPlay == false)
-                        {
-                            isPlay = true
-                            palyButton.iconSource = "qrc:/Images/pause.png"
-                        }
+//                        //把视频文件的路径赋值给player的资源
+//                        player.source = mymediaplayer.fileNameUrl
+//                        if(isPlay == false)
+//                        {
+//                            isPlay = true
+//                            palyButton.iconSource = "qrc:/Images/pause.png"
+//                        }
                     }
-
                 }
 
                 Button{
@@ -273,6 +272,8 @@ ApplicationWindow {
                         }
                     }
                     onClicked: {
+                        //把视频文件的路径赋值给player的资源
+                        player.source = mymediaplayer.fileNameUrl
                         if(isPlay == true)
                         {
                             player.pause();

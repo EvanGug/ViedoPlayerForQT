@@ -19,12 +19,12 @@ public:
     QUrl fileNameUrl() const;
 
 public slots:
-//    void handleData(QString data);
+    void handleData(QString data);
 
 private:
     QUrl m_fileNameUrl;
 
-//    ResultReceiver *m_receiver;
+    ResultReceiver *m_receiver;
 };
 
 #endif // PLAYER_H
