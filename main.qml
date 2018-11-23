@@ -5,13 +5,21 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 ApplicationWindow {
     id: mainWindow
-    color: "black"
+    color: "grey"
     visible: true
     width: 360
     height: 640
     title: qsTr("Video Player")
     property bool isPlay: false
+    property bool isFullScreen: false
 
+//    Window {
+//        id: videoWindow
+//        width: mainWindow.width
+//        height: mainWindow.height-50
+//        flags: Qt.FramelessWindowHint
+
+//    }
     Column {
         width: mainWindow.width
         height: mainWindow.height
@@ -25,7 +33,6 @@ ApplicationWindow {
             height: mainWindow.height -30
             anchors.top: mainWindow.top
             anchors.left: mainWindow.left
-
             //使用MediaPlayer进行音频输出
             MediaPlayer{
                 id: player
@@ -42,34 +49,52 @@ ApplicationWindow {
                 source: player
             }
             MouseArea {
+                id: playerMouseArea
                 anchors.fill: parent
                 onPressed: {
                     if(isPlay == true)
                     {
                         player.pause();
-                        console.log("pause")
                         isPlay = false
                         palyButton.iconSource = "qrc:/Images/play.png"
                     }
                     else
                     {
                         player.play() ;
-                        console.log("play")
                         isPlay = true
                         palyButton.iconSource = "qrc:/Images/pause.png"
                     }
                 }
+//                onDoubleClicked:  {
+//                    if(isFullScreen == true)
+//                    {
+//                        player.parent = screenRec
+//                        video.parent = screenRec
+//                        playerMouseArea.parent = screenRec
+//                        videoWindow.showNormal()
+//                        isFullScreen = false
+//                        fullScreenButton.iconSource = "qrc:/Images/fullscreen.png"
+//                    }
+//                    else
+//                    {
+//                        player.parent = videoWindow
+//                        video.parent = videoWindow
+//                        playerMouseArea.parent = videoWindow
+//                        videoWindow.showFullScreen()
+//                        isFullScreen = true
+//                        palyButton.iconSource = "qrc:/Images/fullscreen_exit.png"
+//                    }
+//                }
             }
+            //定义了进度条和音量条的矩形空间
             Rectangle{
                 id:control
                 color:"#80202020"
                 border.color: "#80202020"
                 border.width: 1
-                width: screenRec.width
+                width: parent.width
                 height: 20
-    //            anchors.top: screenRec.bottom + 20
-                anchors.bottom: screenRec.bottom
-                anchors.left: screenRec.left
+                anchors.bottom: parent.bottom
                 Row{
                     width: parent.width
                     height: parent.height
@@ -186,9 +211,9 @@ ApplicationWindow {
                     }
                 }
             }
+
         }
 
-        //定义了进度条和音量条的矩形空间
 
         //控制按钮矩形空间
         Rectangle{
@@ -198,7 +223,6 @@ ApplicationWindow {
             width: mainWindow.width
             height: 30
             anchors.left: mainWindow.left
-            anchors.top: control.bottom
             Row{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
@@ -224,6 +248,13 @@ ApplicationWindow {
                     onClicked: {
                         //执行openFile函数
                         mymediaplayer.openFile()
+                        //把视频文件的路径赋值给player的资源
+                        player.source = mymediaplayer.fileNameUrl
+                        if(isPlay == false)
+                        {
+                            isPlay = true
+                            palyButton.iconSource = "qrc:/Images/pause.png"
+                        }
                     }
 
                 }
@@ -242,19 +273,15 @@ ApplicationWindow {
                         }
                     }
                     onClicked: {
-                        //把视频文件的路径赋值给player的资源
-                        player.source = mymediaplayer.fileNameUrl
                         if(isPlay == true)
                         {
                             player.pause();
-                            console.log("pause")
                             isPlay = false
                             palyButton.iconSource = "qrc:/Images/play.png"
                         }
                         else
                         {
                             player.play() ;
-                            console.log("play")
                             isPlay = true
                             palyButton.iconSource = "qrc:/Images/pause.png"
                         }
@@ -350,13 +377,32 @@ ApplicationWindow {
                 width: 22
                 height: 22
                 anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-//                onClicked: player
+                anchors.right: parent.right
+//                onClicked: {
+//                    if(isFullScreen == true)
+//                    {
+//                        player.parent = screenRec
+//                        video.parent = screenRec
+//                        playerMouseArea.parent = screenRec
+//                        videoWindow.showNormal()
+//                        isFullScreen = false
+//                        fullScreenButton.iconSource = "qrc:/Images/fullscreen.png"
+//                    }
+//                    else
+//                    {
+//                        player.parent = videoWindow
+//                        video.parent = videoWindow
+//                        playerMouseArea.parent = videoWindow
+//                        videoWindow.showFullScreen()
+//                        isFullScreen = true
+//                        palyButton.iconSource = "qrc:/Images/fullscreen_exit.png"
+//                    }
+//                }
                 style: ButtonStyle{
                     background: Rectangle{
                         color: "#80202020"
-                        implicitWidth: fastFoButton.width
-                        implicitHeight: fastFoButton.height
+                        implicitWidth: fullScreenButton.width
+                        implicitHeight: fullScreenButton.height
                         radius: 0
                     }
                 }

@@ -9,5 +9,6 @@
         <file>Images/play.png</file>
         <file>Images/previoust.png</file>
         <file>Images/stop.png</file>
+        <file>Images/fullscreen_exit.png</file>
     </qresource>
 </RCC>
